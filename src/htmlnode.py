@@ -42,4 +42,7 @@ class ParentNode(HTMLNode):
             raise ValueError("Error: Missing tag value!")
         if self.children is None:
             raise ValueError("Error: Missing children value")
-        return 
+        output = ""
+        for child in self.children:
+            output += child.to_html()
+        return f"<{self.tag}>{output}</{self.tag}>"
