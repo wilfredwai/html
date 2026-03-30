@@ -1,3 +1,5 @@
+import re
+
 from textnode import TextType, TextNode
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
@@ -20,3 +22,24 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
                     else:
                         new_list.append(TextNode(split_node[i], text_type))
     return new_list
+
+def split_nodes_image(old_nodes):
+    new_node = []
+    for node in old_nodes:
+        split_node = re.split(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", node)
+        if len(split_node) == 1:
+            new_node.append(node)
+        elif len(split_node) %2 == 0:
+            raise Exception("invalid Markdown syntax")
+        else:
+            for i in range(0, len(split_node)):
+                if split_node[i] != "":
+                    if i %2 == 0:
+                        new_node.append(TextNode(split_node[i], TextType.TEXT))
+                    else:
+                        new_node.append(TextNode(split_node[i], TextType.IMAGE))
+    return new_node
+
+
+
+# linki r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
