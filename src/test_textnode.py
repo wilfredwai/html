@@ -29,12 +29,6 @@ class TestTextNode(unittest.TestCase):
         node2 = TextNode("This is a node", TextType.CODE, "www.google.com")
         self.assertEqual(node, node2)
 
-# class TextNode:
-    # def __init__(self, text, text_type, url=None):
-        # self.text = text
-        # self.text_type = text_type
-        # self.url = url
-
     def extnode_to_htmlnode_test_1(self):
         node = TextNode("This is a text node", TextType.TEXT)
         html_node = text_node_to_html_node(node)

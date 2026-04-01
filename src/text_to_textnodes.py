@@ -1,7 +1,5 @@
 from textnode import TextType, TextNode
-from htmlnode import HTMLNode, LeafNode, ParentNode
 from split_node import split_nodes_delimiter
-from extract_markdown import extract_markdown_images, extract_markdown_links
 from split_nodes_image_and_link import split_nodes_image, split_nodes_link
 
 """
@@ -9,5 +7,20 @@ This is **text** with an _italic_ word and a `code block` and an ![obi wan image
 """
 
 def text_to_textnodes(text):
-    node = TextNode(text, TextType.TEXT)
-    splited_node = split_node(node,)
+    original_text = text
+    input = []
+    output = []
+    node = TextNode(original_text, TextType.TEXT)
+    input.append(node)
+    bold_node = split_nodes_delimiter(input, "**", TextType.BOLD)
+    
+    italic_node = split_nodes_delimiter(bold_node, "_", TextType.ITALIC)
+    
+    code_node = split_nodes_delimiter(italic_node, "`", TextType.CODE)
+    
+    image_node = split_nodes_image(code_node)
+    
+    link_node = split_nodes_link(image_node)
+    
+    return link_node
+    
