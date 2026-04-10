@@ -11,12 +11,33 @@ class BlockType(Enum):
     ORDERED = "ordered_list"
 
 def block_to_block_type(text):
-    for line in text:
-        
+    lines = text.split("\n")
+
+    if text.startswith(("# ", "## ", "### ", "#### ", "##### ", "###### ")):
+        return BlockType.HEADING
+    if len(lines) > 1 and lines[0].startswith("```") and lines[-1].startswith("```"):
+        return BlockType.CODE
+    if text.startswith(">"):
+        for line in lines:
+            if not line.startswith(">"):
+                return BlockType.PARAGRAPH
+        return BlockType.QUOTE
+    if text.startswith("- "):
+        for line in lines:
+            if not line.startswith("- "):
+                return BlockType.PARAGRAPH
+        return BlockType.UNORDERED
+    if text.startswith("1. "):
+        for i in range(0, len(lines)):
+            if not lines[i].startswith(f"{i+1}. "):
+                return BlockType.PARAGRAPH
+        return BlockType.ORDERED
+    else:
+        return BlockType.PARAGRAPH
 
 
 """
-    #heading_check = re.findall(r"#{1,6} ", text)
+    heading_check = re.findall(r"#{1,6} ", text)
     if re.findall(r"#{1,6} ", text) != []:
         return BlockType.HEADING
     elif re.findall(r"\\\\n", text) != []:

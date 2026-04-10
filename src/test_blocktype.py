@@ -8,7 +8,7 @@ class TestBlocktoblocktype(unittest.TestCase):
         block_type = block_to_block_type(text)
         self.assertEqual(block_type, BlockType.HEADING)
     def test_block_to_block_type_2(self):
-        text = "\\\\nThis is a Code"
+        text = "```\nThis is a Code\nAnother line\n```"
         block_type = block_to_block_type(text)
         self.assertEqual(block_type, BlockType.CODE)
     def test_block_to_block_type_3(self):
