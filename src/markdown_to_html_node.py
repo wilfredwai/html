@@ -29,3 +29,8 @@ def heading_to_html_node(block):
     count = block.count("#")
     if count == 0:
         return block
+    for count > 0:
+        
+        
+        
+def code_to_html_node(block):
