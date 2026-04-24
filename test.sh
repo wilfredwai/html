@@ -1,4 +1,6 @@
-python3 -m unittest discover -s src -p "test_blocktype.py" -v
+python3 -m unittest discover -s src -p "test_markdown_to_html_node.py" -v
+
+#python3 -m unittest discover -s src -p "test_blocktype.py" -v
 
 #python3 -m unittest discover -s src -p "test_markdown_to_blocks.py" -v
 
